@@ -1,0 +1,14 @@
+namespace: zeron-db
+
+persistentVolume:
+  storage: 5Gi
+  path: /mnt/data
+  storageClassName: local-storage
+  nodeName: k8s-worker
+
+mysql:
+  image: mysql:5.7
+  rootPassword: root
+
+service:
+  port: 3306

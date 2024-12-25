@@ -1,0 +1,15 @@
+namespace: zeron-php
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30000
+
+mysql:
+  host: mysql.zeron-db.svc.cluster.local
+
+secret:
+  username: bXl1c2Vy # base64 인코딩된 사용자 이름 (예: 'myuser')
+  password: cm9vdA== # base64 인코딩된 비밀번호 (예: 'root')

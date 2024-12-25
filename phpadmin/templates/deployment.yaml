@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: phpmyadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - name: phpmyadmin
+        image: {{ .Values.phpmyadmin.image }}
+        ports:
+        - containerPort: {{ .Values.phpmyadmin.service.port }}
+        env:
+        - name: PMA_HOST
+          value: {{ .Values.mysql.host }} # MySQL 서비스의 DNS 이름
+        - name: PMA_USER
+          valueFrom:
+            secretKeyRef:
+              name: php-sc
+              key: username # MySQL 사용자 이름이 포함된 비밀 키 
+        - name: PMA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: php-sc
+              key: password # MySQL 비밀번호가 포함된 비밀 키 
